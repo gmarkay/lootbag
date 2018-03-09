@@ -1,8 +1,8 @@
 // const { } = require('../js/lootbag.js');
 const { createBag, } = require('../js/makeTable');
 const { child, toy } = require('../js/parse-args');
-const { addItem, deleteItem, getItems } = require('../js/bagItems');
-const { assert: { equal, isFunction, isObject, isArray, lengthOf, oneOf } } = require('chai');
+const { addItem, deleteItem, getItems, getChildren } = require('../js/bagItems');
+const { assert: { equal, isFunction, isObject, isArray, lengthOf, oneOf, isString } } = require('chai');
 
 beforeEach((done) => {
   createBag()
@@ -54,6 +54,21 @@ describe('bag items module', () => {
             });
         });
     });
+  });
+  describe('getting all children from the bag', () => {
+    it('should be an array', () => {
+      return getChildren()
+        .then((children) => {
+          isArray(children);
+        });
+    });
+    it('children should be strings', () => {
+      return getChildren()
+        .then((children) => {
+          let i = Math.floor(Math.random() * children.length - 1) + 1;
+          isString(children[i].child);
+        })
+    })
   });
 
 })

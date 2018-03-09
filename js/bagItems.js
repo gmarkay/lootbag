@@ -31,3 +31,10 @@ module.exports.getItems = () => {
     });
   });
 };
+module.exports.getChildren  = ()=>{
+  return new Promise((resolve, reject)=>{
+    db.all('SELECT child FROM bagItems', function(err, rows){
+      resolve(rows);
+    })
+  })
+}
