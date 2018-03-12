@@ -31,19 +31,35 @@ module.exports.getItems = () => {
     });
   });
 };
-module.exports.getChildren  = ()=>{
-  return new Promise((resolve, reject)=>{
-    db.all('SELECT child FROM bagItems', function(err, rows){
+module.exports.getChildren = () => {
+  return new Promise((resolve, reject) => {
+    db.all('SELECT child FROM bagItems', function (err, rows) {
       resolve(rows);
     });
   });
 };
 
 module.exports.getChildToys = (child) => {
-  return new Promise((resolve, reject)=>{
-    db.all(`SELECT toy FROM bagItems WHERE child="${child}"`, function(err, rows){
-      console.log(rows);
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT toy FROM bagItems WHERE child="${child}"`, function (err, rows) {
       resolve(rows);
     });
   });
 };
+
+module.exports.getDelivered = (child) => {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT delivered FROM bagItems WHERE child="${child}"`, function (err, rows) {
+      resolve(rows);
+    });
+  });
+}
+
+module.exports.deliverToy = (child) => {
+  return new Promise((resolve, reject) => {
+    // console.log(child);
+    db.run(`UPDATE bagItems SET delivered="1" WHERE child="Nico"`, function (err, rows) {
+      resolve(this.changes);
+    });
+  });
+}

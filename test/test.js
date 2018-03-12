@@ -2,18 +2,17 @@
 // const { } = require('../js/lootbag.js');
 const { createBag, } = require('../js/makeTable');
 const { child, toy } = require('../js/parse-args');
-const { addItem, deleteItem, getItems, getChildren, getChildToys } = require('../js/bagItems');
-const { assert: { equal, isFunction, isObject, isArray, lengthOf, oneOf, isString } } = require('chai');
-
-beforeEach((done) => {
-  createBag()
-    .then(() => {
-      done();
-    })
-})
+const { addItem, deleteItem, getItems, getChildren, getChildToys, deliverToy, getDelivered } = require('../js/bagItems');
+const { assert: { equal, isFunction, isObject, isArray, lengthOf, oneOf, isString, isBoolean } } = require('chai');
 
 
 describe('bag items module', () => {
+  beforeEach((done) => {
+    createBag()
+      .then(() => {
+        done();
+      })
+  })
 
   describe('adding item to the bag', () => {
     let newItem = {
@@ -98,5 +97,28 @@ describe('bag items module', () => {
         });
     });
   });
+  describe('update a child to show toy delivered', () => {
+    let child = 'Nico';
 
-})
+    it('should be a function', () => {
+      isFunction(deliverToy);
+    });
+
+    it('should show one change in the db', () => {
+      return deliverToy(child)
+        .then((changes) => {
+          equal(1, changes);
+        });
+    });
+    it('should show that all a childs toys are delivered', () => {
+      return deliverToy(child)
+        .then(() => {
+          getDelivered(child)
+            .then((toys) => {
+              let i = Math.floor(Math.random() * toys.length - 1) + 1;
+              equal(1, toys[i].delivered)
+            });
+        });
+    });
+  });
+});

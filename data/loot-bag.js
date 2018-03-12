@@ -2,7 +2,7 @@ module.exports.bagItems = [
   {
     child: 'Nico',
     toy: 'Yoyo',
-    delivered: 1
+    delivered: 0
   },
   {
     child: 'Taylor',
@@ -12,7 +12,7 @@ module.exports.bagItems = [
   {
     child: 'Cory',
     toy: 'Barbie Doll',
-    delivered: 1
+    delivered: 0
   },
   {
     child: 'Kyle',
@@ -22,6 +22,6 @@ module.exports.bagItems = [
   {
     child: 'Andy',
     toy: 'Flamethrower',
-    delivered: 1
+    delivered: 0
   }
 ]

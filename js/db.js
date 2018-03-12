@@ -12,4 +12,4 @@ const { createBag } = require('./makeTable');
         console.log('oops', err);
       });
   });
-}());
+})();
