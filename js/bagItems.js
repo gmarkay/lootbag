@@ -35,6 +35,15 @@ module.exports.getChildren  = ()=>{
   return new Promise((resolve, reject)=>{
     db.all('SELECT child FROM bagItems', function(err, rows){
       resolve(rows);
-    })
-  })
-}
+    });
+  });
+};
+
+module.exports.getChildToys = (child) => {
+  return new Promise((resolve, reject)=>{
+    db.all(`SELECT toy FROM bagItems WHERE child="${child}"`, function(err, rows){
+      console.log(rows);
+      resolve(rows);
+    });
+  });
+};

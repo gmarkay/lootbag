@@ -1,7 +1,8 @@
+
 // const { } = require('../js/lootbag.js');
 const { createBag, } = require('../js/makeTable');
 const { child, toy } = require('../js/parse-args');
-const { addItem, deleteItem, getItems, getChildren } = require('../js/bagItems');
+const { addItem, deleteItem, getItems, getChildren, getChildToys } = require('../js/bagItems');
 const { assert: { equal, isFunction, isObject, isArray, lengthOf, oneOf, isString } } = require('chai');
 
 beforeEach((done) => {
@@ -67,8 +68,35 @@ describe('bag items module', () => {
         .then((children) => {
           let i = Math.floor(Math.random() * children.length - 1) + 1;
           isString(children[i].child);
-        })
-    })
+        });
+    });
+  });
+
+  describe('getting one childs toys from the bag', () => {
+    let child = 'Nico';
+
+    it('should be a function', () => {
+      isFunction(getChildToys);
+    });
+    it('toys should be an array', () => {
+      return getChildToys(child)
+        .then((toys) => {
+          isArray(toys);
+        });
+    });
+    it('each toy should be a string', () => {
+      return getChildToys(child)
+        .then((toys) => {
+          let i = Math.floor(Math.random() * toys.length - 1) + 1;
+          isString(toys[i].toy);
+        });
+    });
+    it('should return the correct toy', () => {
+      return getChildToys(child)
+        .then((toys) => {
+          equal('Yoyo', toys[0].toy);
+        });
+    });
   });
 
 })
